@@ -105,14 +105,25 @@ Options:
   --help               Show this message
 
 Examples:
+  ── Bash / Zsh (Oh My Zsh) ──
   # Install (auto-detects platforms)
   curl -fsSL $RAW_BASE/installer/install.sh | bash
 
   # Install + copy templates to a vault
-  curl -fsSL $RAW_BASE/installer/install.sh | bash -s -- --vault-path ~/mi-vault
+  curl -fsSL $RAW_BASE/installer/install.sh | bash -s -- --vault-path ~/ruta/al/vault
 
-  # Check version (note the -s -- for pipe)
+  # Check version
   curl -fsSL $RAW_BASE/installer/install.sh | bash -s -- --version
+
+  ── Fish ──
+  # Install (same)
+  curl -fsSL $RAW_BASE/installer/install.sh | bash
+
+  # Install + copy templates (NO -- after -s)
+  curl -fsSL $RAW_BASE/installer/install.sh | bash -s --vault-path ~/ruta/al/vault
+
+  # Check version
+  curl -fsSL $RAW_BASE/installer/install.sh | bash -s --version
 
 Platforms detected:
   • Pi (gentle-pi):    ~/.pi/agent/skills/
@@ -124,7 +135,6 @@ After install, the agent will guide you through vault setup
 the first time you say "crea mi vault de obsidian".
 EOF
 }
-
 # ── Logging ──
 info()  { echo -e "  [INFO]  $*"; }
 ok()    { echo -e "  [OK]    $*"; }

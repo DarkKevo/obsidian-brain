@@ -10,31 +10,49 @@ El agente captura ideas mientras te enseña, conecta conceptos automáticamente,
 
 ### Desde GitHub (recomendado)
 
+Elegí tu shell y reemplazá `~/ruta/al/vault` por la ruta de tu vault:
+
+**Bash / Zsh (Oh My Zsh)**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash
 ```
 
-Si **ya tenés un vault** y querés copiarle los templates:
-
+Con vault existente:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/mi-vault
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/ruta/al/vault
+```
+
+> 💡 El `--` separa los argumentos de curl de los que le pasás al script.
+
+**Fish**
+```fish
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash
+```
+
+Con vault existente:
+```fish
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s --vault-path ~/ruta/al/vault
+```
+
+> 💡 En fish **no** usamos `--`, los argumentos van directo después de `-s`.
+
+### Ver versión
+
+**Bash / Zsh**
+```bash
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --version
+```
+
+**Fish**
+```fish
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s --version
 ```
 
 ### Desde el repo (si lo clonaste)
 
 ```bash
 cd ~/Proyectos/Skill\ Obsidian-Brain
-bash installer/install.sh --vault-path ~/mi-vault
-```
-
-### Ver versión instalada
-
-```bash
-# Si tenés el repo clonado:
-bash installer/install.sh --version
-
-# Via curl (atentiendo al pipe):
-curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --version
+bash installer/install.sh --vault-path ~/ruta/al/vault
 ```
 
 > El installer detecta automáticamente qué plataformas tenés instaladas (Pi, Claude Code, OpenCode, Cursor) y copia los archivos donde corresponde.
@@ -71,29 +89,35 @@ Agente: Te explica, crea la nota atómica, y te pregunta:
 | **Links automáticos** | Al crear una nota, busca conceptos relacionados en tu vault y sugiere `[[wikilinks]]` |
 | **Preguntas socráticas** | Cuando captura algo que te explicó, hace 1-2 preguntas para profundizar. Si decís "seguí", sigue. |
 | **Mantenimiento** | Sugiere mover notas de Limbo a Áreas, crear Hubs cuando hay muchas notas del mismo tema, valida frontmatter |
-| **Git sync** | Después de cada nota pregunta "¿Hago commit?". Nunca sube nada sin tu permiso. |
+| **Git sync** | Después de cada nota pregunta "¿Hago commit?". Nunca sube nada sin tu permiso. Antes de commitear, organiza Limbo. |
 | **Búsqueda** | Usa `rg` (ripgrep) para buscar rápido por contenido, tags o nombre de archivo |
 
 ---
 
 ## 🔄 Actualizar el skill
 
-Cuando haya cambios nuevos en el repo, actualizás con el mismo comando de instalación:
+Cuando haya cambios nuevos en el repo, corre el mismo comando de instalación según tu shell:
 
+**Bash / Zsh**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/tu-vault
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/ruta/al/vault
+```
+
+**Fish**
+```fish
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s --vault-path ~/ruta/al/vault
 ```
 
 Eso descarga la última versión y la instala (sobreescribe archivos del skill, **no toca tu vault**).
 
-Para ver si hay una versión más nueva:
+Para ver la versión actual:
 
 ```bash
-# Mostrar versión actual
-bash installer/install.sh --version
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --version   # bash/zsh
+```
 
-# Después checkeá los cambios en GitHub:
-# https://github.com/DarkKevo/obsidian-brain
+```fish
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s --version   # fish
 ```
 
 ---
