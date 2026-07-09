@@ -83,8 +83,10 @@ Agente: Te explica, crea la nota atómica, y te pregunta:
 Cuando haya cambios nuevos, corré el mismo comando que para instalar. Descarga la última versión y actualiza los archivos del skill (no toca tu vault):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/ruta/al/vault
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --force --vault-path ~/ruta/al/vault
 ```
+
+> 💡 El `--force` sobrescribe los archivos del skill aunque ya existan. Sin `--force` saltea los que ya están instalados.
 
 Para ver la versión instalada:
 
