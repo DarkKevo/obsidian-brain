@@ -22,7 +22,7 @@ El installer detecta automáticamente qué plataformas tenés instaladas (Pi, Cl
 - **Tres tipos de nota**: Hub (Mapa de Contenido), Atómica (un concepto), Referencia (fuente externa).
 - **Sugerencia de links**: al crear una nota, busca automáticamente conceptos relacionados en el vault y sugiere `[[wikilinks]]`.
 - **Preguntas socráticas**: cuando captura implícitamente, profundiza con preguntas para entender mejor el contexto.
-- **Git sync automático**: commit + push sin preguntar — solo contenido nuevo.
+- **Git sync con aprobación**: después de cada nota, pregunta si querés commitear. Nunca sube nada sin tu permiso.
 - **Mantenimiento**: move notas de Limbo a Areas, sugerí Hubs, validá frontmatter.
 - **Onboarding guiado**: crea el vault, la estructura de carpetas y el repo de GitHub en un solo flujo.
 
@@ -53,6 +53,18 @@ Todas las plataformas referencian el mismo `SKILL.md` como fuente canónica.
 4. **Cursor**: Copiá `adapters/cursor/.cursor/rules/obsidian-brain.mdc` a `~/.cursor/rules/`.
 
 Después de instalar, el agente de IA tendrá acceso al protocolo completo. En la primera interacción, te va a preguntar el nombre de tu vault y lo va a configurar solo.
+
+## Mantenerse Actualizado
+
+```bash
+# Ver versión instalada y última disponible
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh --version
+
+# Reinstalar la última versión (reescribe archivos, no toca el vault)
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/tu-vault
+```
+
+También podés checkear el [repositorio en GitHub](https://github.com/DarkKevo/obsidian-brain) para ver los cambios nuevos.
 
 ## Protocolo Completo
 

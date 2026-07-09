@@ -266,7 +266,14 @@ git status --porcelain "{filepath}"
 ```
 
 ### Trigger
-After EVERY note creation:
+After EVERY note creation, ASK the user before committing:
+
+> "¿Hago commit y push de `{note}`?"
+
+- If user says **yes / dale / ok** → commit.
+- If user says **no / después / skip** → skip git entirely.
+
+### Commit Flow
 ```bash
 git add {path/to/new-note.md}
 git commit -m "capture: {concept-slug}"    # for atomic/reference
@@ -275,12 +282,17 @@ git commit -m "hub: {topic}"               # for hubs
 git push                                    # if autopush=true
 ```
 
+### Batch Commit at Session End
+If multiple notes were created during the session, the agent MAY ask at the end:
+
+> "Hay {N} notas nuevas sin commitear. ¿Hago commit de todas?"
+
 ### Commit Message Format
 - Atomic/Reference notes: `capture: {concept-slug}`
 - Hubs: `hub: {topic}`
 
 ### Rules
-- **No user approval required** — commit and push automatically.
+- **Always ask before committing** — never commit without explicit user approval.
 - **Inform after**: "Listo, ya lo subí a GitHub."
 - If `autopush` is false, commit only, skip push.
 
@@ -326,12 +338,13 @@ Need to find note file by name "{name}"?
 ## 11. Hard Rules (DO NOT)
 
 1. **Do NOT** commit moves, renames, or frontmatter-only edits.
-2. **Do NOT** ask for commit permission.
+2. **Do NOT** commit without explicit user approval.
 3. **Do NOT** modify existing notes during capture (only the new note).
 4. **Do NOT** add tags automatically without user approval.
 5. **Do NOT** create notes outside Limbo/.
 6. **Do NOT** hardcode vault paths — always use `.vaultconfig`.
 7. **Do NOT** create duplicate notes — always check existence first.
+8. **Do NOT** create notes outside the vault directory.
 
 ---
 

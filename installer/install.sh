@@ -256,6 +256,7 @@ main() {
   while [[ $# -gt 0 ]]; do
     case "$1" in
       --help) show_help; exit 0 ;;
+      --version) echo "obsidian-brain v$VERSION"; exit 0 ;;
       --vault-path) vault_path="$2"; shift 2 ;;
       *) warn "Opción desconocida: $1"; show_help; exit 1 ;;
     esac
