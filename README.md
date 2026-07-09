@@ -2,6 +2,20 @@
 
 **Obsidian Brain** es un skill de IA que entrena a cualquier agente (Pi, Claude Code, OpenCode, Cursor) para interactuar con un vault de Obsidian usando la metodología **Segundo Cerebro / Zettelkasten**. El agente actúa como tu secretario del segundo cerebro: captura ideas, conecta conceptos, mantiene el vault y sincroniza con GitHub.
 
+## Instalación (una línea)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash
+```
+
+Si ya tenés un vault y querés copiar los templates:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/mi-vault
+```
+
+El installer detecta automáticamente qué plataformas tenés instaladas (Pi, Claude Code, OpenCode, Cursor) y copia los archivos necesarios.
+
 ## Features
 
 - **Captura híbrida**: explícita (le pedís guardar algo), implícita (el agente captura cuando te explica un concepto), o con confirmación (pregunta si no está seguro).
