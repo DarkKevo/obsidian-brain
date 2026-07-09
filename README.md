@@ -8,42 +8,18 @@ El agente captura ideas mientras te enseña, conecta conceptos automáticamente,
 
 ## ⚡ Instalación
 
-### Desde GitHub (recomendado)
+### Desde GitHub
 
-Elegí tu shell y reemplazá `~/ruta/al/vault` por la ruta de tu vault.
-
-> ⚠️ **Importante**: el `--` después de `bash -s` es de bash, no del shell padre.
-> Es **obligatorio** en bash, zsh y fish para que los argumentos con `--` (como `--vault-path`)
-> no se confundan con opciones del propio bash. **No lo saques.**
-
-**Bash / Zsh / Fish** — todos usan el mismo comando:
+Descarga e instala el skill en las plataformas detectadas:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash
 ```
 
-Con vault existente:
+Si **ya tenés un vault**, copiale los templates de notas (reemplazá por tu ruta):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/ruta/al/vault
-```
-
-### Ver versión
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --version
-```
-
-> ⚠️ **No olvides el `--`**: sin él, bash interpreta `--version` como su propia versión.
-
-**Bash / Zsh**
-```bash
-curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --version
-```
-
-**Fish**
-```fish
-curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s --version
 ```
 
 ### Desde el repo (si lo clonaste)
@@ -53,7 +29,11 @@ cd ~/Proyectos/Skill\ Obsidian-Brain
 bash installer/install.sh --vault-path ~/ruta/al/vault
 ```
 
-> El installer detecta automáticamente qué plataformas tenés instaladas (Pi, Claude Code, OpenCode, Cursor) y copia los archivos donde corresponde.
+### Ver versión
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --version
+```
 
 ---
 
@@ -85,26 +65,22 @@ Agente: Te explica, crea la nota atómica, y te pregunta:
 | **Captura híbrida** | Decís "guardá esto" → crea nota. Preguntás "no entiendo X" → te explica y la guarda sola. Si duda, pregunta. |
 | **3 tipos de nota** | **Hub** (mapa de contenido), **Atómica** (un concepto), **Referencia** (fuente externa) |
 | **Links automáticos** | Al crear una nota, busca conceptos relacionados en tu vault y sugiere `[[wikilinks]]` |
-| **Preguntas socráticas** | Cuando captura algo que te explicó, hace 1-2 preguntas para profundizar. Si decís "seguí", sigue. |
-| **Mantenimiento** | Sugiere mover notas de Limbo a Áreas, crear Hubs cuando hay muchas notas del mismo tema, valida frontmatter |
-| **Git sync** | Después de cada nota pregunta "¿Hago commit?". Nunca sube nada sin tu permiso. Antes de commitear, organiza Limbo. |
-| **Búsqueda** | Usa `rg` (ripgrep) para buscar rápido por contenido, tags o nombre de archivo |
+| **Preguntas socráticas** | Cuando captura algo que te explicó, hace preguntas para profundizar. |
+| **Mantenimiento** | Sugiere mover notas de Limbo a Áreas, crear Hubs cuando hay muchas notas del mismo tema, valida frontmatter. |
+| **Git sync** | Después de cada nota pregunta "¿Hago commit?". Antes de commitear, organiza Limbo (mueve notas maduras, sugiere hubs). Nunca sube nada sin tu permiso. |
+| **Búsqueda** | Busca rápido por contenido, tags o nombre de archivo. |
 
 ---
 
 ## 🔄 Actualizar el skill
 
-Cuando haya cambios nuevos en el repo, corre el mismo comando de instalación:
+Cuando haya cambios nuevos, corré el mismo comando que para instalar. Descarga la última versión y actualiza los archivos del skill (no toca tu vault):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/ruta/al/vault
 ```
 
-(Reemplazá `~/ruta/al/vault` por la ruta real de tu vault)
-
-Eso descarga la última versión y la instala (sobreescribe archivos del skill, **no toca tu vault**).
-
-Para ver la versión actual:
+Para ver la versión instalada:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --version
@@ -121,17 +97,13 @@ curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/instal
 | **OpenCode** | `~/.config/opencode/skills/obsidian-brain/SKILL.md` |
 | **Cursor** | `~/.cursor/rules/obsidian-brain.mdc` |
 
-Todas las plataformas usan el mismo `SKILL.md` como fuente canónica. Los adapters solo referencian al archivo principal.
-
 ---
 
 ## 📖 Protocolo completo
 
-Todo el detalle de cómo se comporta el agente está en:
+Todo el detalle de cómo se comporta el agente (captura, linking, mantenimiento, git sync, búsqueda, preguntas socráticas, hard rules) está en:
 
 [`skills/obsidian-brain/SKILL.md`](skills/obsidian-brain/SKILL.md)
-
-Incluye: activation contract, configuración del vault, estructura de carpetas, sistema de templates, protocolo de captura (explícita/implícita/duda), linking, preguntas socráticas, mantenimiento, git sync, comandos de búsqueda, hard rules y decision gates.
 
 ---
 

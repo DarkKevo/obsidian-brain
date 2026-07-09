@@ -105,26 +105,20 @@ Options:
   --help               Show this message
 
 Examples:
-  # Install (auto-detects platforms)
+  # Install skill (detects platforms automatically)
   curl -fsSL $RAW_BASE/installer/install.sh | bash
 
-  # Install + copy templates (~/ruta/al/vault = tu vault real)
+  # Install + copy templates to your vault (replace with your path)
   curl -fsSL $RAW_BASE/installer/install.sh | bash -s -- --vault-path ~/ruta/al/vault
 
-  # Check version (el -- es OBLIGATORIO)
+  # Check installed version
   curl -fsSL $RAW_BASE/installer/install.sh | bash -s -- --version
-
-IMPORTANT: el -- despues de bash -s es de bash, no del shell.
-Funciona igual en bash, zsh, fish y cualquier shell.
 
 Platforms detected:
   • Pi (gentle-pi):    ~/.pi/agent/skills/
   • Claude Code:       ~/.claude/rules/
   • OpenCode:          ~/.config/opencode/skills/ + AGENTS.md
   • Cursor:            ~/.cursor/rules/
-
-After install, the agent will guide you through vault setup
-the first time you say "crea mi vault de obsidian".
 EOF
 }
 # ── Logging ──
