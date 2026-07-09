@@ -96,27 +96,32 @@ show_help() {
   cat <<EOF
 obsidian-brain installer — v$VERSION
 
-One-liner:
-  curl -fsSL $RAW_BASE/installer/install.sh | bash
-
 Usage:
   install.sh [OPTIONS]
 
 Options:
   --vault-path PATH    Copy templates to vault Templates/ directory
+  --version            Show version
   --help               Show this message
 
-Installs to detected platforms:
+Examples:
+  # Install (auto-detects platforms)
+  curl -fsSL $RAW_BASE/installer/install.sh | bash
+
+  # Install + copy templates to a vault
+  curl -fsSL $RAW_BASE/installer/install.sh | bash -s -- --vault-path ~/mi-vault
+
+  # Check version (note the -s -- for pipe)
+  curl -fsSL $RAW_BASE/installer/install.sh | bash -s -- --version
+
+Platforms detected:
   • Pi (gentle-pi):    ~/.pi/agent/skills/
   • Claude Code:       ~/.claude/rules/
   • OpenCode:          ~/.config/opencode/skills/ + AGENTS.md
   • Cursor:            ~/.cursor/rules/
 
-Without --vault-path, templates are not copied. Run again with
---vault-path /path/to/your/vault to install templates.
-
-After install, start an AI session — the agent will guide you
-through vault setup the first time you interact.
+After install, the agent will guide you through vault setup
+the first time you say "crea mi vault de obsidian".
 EOF
 }
 

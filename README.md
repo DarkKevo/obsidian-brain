@@ -1,77 +1,130 @@
-# Obsidian Brain — AI Skill para Vaults de Obsidian
+# Obsidian Brain 🧠
 
-**Obsidian Brain** es un skill de IA que entrena a cualquier agente (Pi, Claude Code, OpenCode, Cursor) para interactuar con un vault de Obsidian usando la metodología **Segundo Cerebro / Zettelkasten**. El agente actúa como tu secretario del segundo cerebro: captura ideas, conecta conceptos, mantiene el vault y sincroniza con GitHub.
+**Skill de IA** que entrena a cualquier agente (Pi, Claude Code, OpenCode, Cursor) para actuar como tu **segundo cerebro** sobre un vault de Obsidian usando la metodología Zettelkasten.
 
-## Instalación (una línea)
+El agente captura ideas mientras te enseña, conecta conceptos automáticamente, mantiene tu vault ordenado, y te ayuda a profundizar con preguntas socráticas.
+
+---
+
+## ⚡ Instalación
+
+### Desde GitHub (recomendado)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash
 ```
 
-Si ya tenés un vault y querés copiar los templates:
+Si **ya tenés un vault** y querés copiarle los templates:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/mi-vault
 ```
 
-El installer detecta automáticamente qué plataformas tenés instaladas (Pi, Claude Code, OpenCode, Cursor) y copia los archivos necesarios.
-
-## Features
-
-- **Captura híbrida**: explícita (le pedís guardar algo), implícita (el agente captura cuando te explica un concepto), o con confirmación (pregunta si no está seguro).
-- **Tres tipos de nota**: Hub (Mapa de Contenido), Atómica (un concepto), Referencia (fuente externa).
-- **Sugerencia de links**: al crear una nota, busca automáticamente conceptos relacionados en el vault y sugiere `[[wikilinks]]`.
-- **Preguntas socráticas**: cuando captura implícitamente, profundiza con preguntas para entender mejor el contexto.
-- **Git sync con aprobación**: después de cada nota, pregunta si querés commitear. Nunca sube nada sin tu permiso.
-- **Mantenimiento**: move notas de Limbo a Areas, sugerí Hubs, validá frontmatter.
-- **Onboarding guiado**: crea el vault, la estructura de carpetas y el repo de GitHub en un solo flujo.
-
-## Plataformas Soportadas
-
-| Plataforma | Archivo | Formato |
-|------------|---------|---------|
-| Pi (gentle-pi) | `skills/obsidian-brain/SKILL.md` | Skill nativo con frontmatter YAML |
-| Claude Code | `adapters/claude-code/.claude/rules/obsidian-brain.md` | Regla Claude Code |
-| OpenCode | `adapters/opencode/AGENTS.md` | Sección en AGENTS.md |
-| Cursor | `adapters/cursor/.cursor/rules/obsidian-brain.mdc` | Regla Cursor con glob `**/*.md` |
-
-Todas las plataformas referencian el mismo `SKILL.md` como fuente canónica.
-
-## Instalación
-
-### Rápida (installer)
+### Desde el repo (si lo clonaste)
 
 ```bash
-./installer/install.sh
+cd ~/Proyectos/Skill\ Obsidian-Brain
+bash installer/install.sh --vault-path ~/mi-vault
 ```
 
-### Manual
-
-1. **Pi (gentle-pi)**: Copiá o symlinkeá `skills/obsidian-brain/SKILL.md` a tu directorio de skills de Pi.
-2. **Claude Code**: Copiá `adapters/claude-code/.claude/rules/obsidian-brain.md` a `~/.claude/rules/`.
-3. **OpenCode**: Copiá la sección `## obsidian-brain` de `adapters/opencode/AGENTS.md` a tu `AGENTS.md`.
-4. **Cursor**: Copiá `adapters/cursor/.cursor/rules/obsidian-brain.mdc` a `~/.cursor/rules/`.
-
-Después de instalar, el agente de IA tendrá acceso al protocolo completo. En la primera interacción, te va a preguntar el nombre de tu vault y lo va a configurar solo.
-
-## Mantenerse Actualizado
+### Ver versión instalada
 
 ```bash
-# Ver versión instalada y última disponible
-curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh --version
+# Si tenés el repo clonado:
+bash installer/install.sh --version
 
-# Reinstalar la última versión (reescribe archivos, no toca el vault)
+# Via curl (atentiendo al pipe):
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --version
+```
+
+> El installer detecta automáticamente qué plataformas tenés instaladas (Pi, Claude Code, OpenCode, Cursor) y copia los archivos donde corresponde.
+
+---
+
+## 🚀 Primeros pasos
+
+Después de instalar, hablá con tu agente IA. En la primera interacción te va a guiar:
+
+```
+Vos:    "creá mi vault de obsidian"
+Agente: "¿Cómo se llama tu vault?"
+Vos:    "segundo-cerebro"
+Agente: ✅ Crea la estructura, templates, git init y GitHub privado
+```
+
+Después ya podés aprender y el agente captura solo:
+
+```
+Vos:    "no entiendo qué es un monad"
+Agente: Te explica, crea la nota atómica, y te pregunta:
+        "¿Hago commit de esto a GitHub?"
+```
+
+---
+
+## ✨ Capacidades
+
+| Capacidad | Cómo funciona |
+|-----------|--------------|
+| **Captura híbrida** | Decís "guardá esto" → crea nota. Preguntás "no entiendo X" → te explica y la guarda sola. Si duda, pregunta. |
+| **3 tipos de nota** | **Hub** (mapa de contenido), **Atómica** (un concepto), **Referencia** (fuente externa) |
+| **Links automáticos** | Al crear una nota, busca conceptos relacionados en tu vault y sugiere `[[wikilinks]]` |
+| **Preguntas socráticas** | Cuando captura algo que te explicó, hace 1-2 preguntas para profundizar. Si decís "seguí", sigue. |
+| **Mantenimiento** | Sugiere mover notas de Limbo a Áreas, crear Hubs cuando hay muchas notas del mismo tema, valida frontmatter |
+| **Git sync** | Después de cada nota pregunta "¿Hago commit?". Nunca sube nada sin tu permiso. |
+| **Búsqueda** | Usa `rg` (ripgrep) para buscar rápido por contenido, tags o nombre de archivo |
+
+---
+
+## 🔄 Actualizar el skill
+
+Cuando haya cambios nuevos en el repo, actualizás con el mismo comando de instalación:
+
+```bash
 curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/tu-vault
 ```
 
-También podés checkear el [repositorio en GitHub](https://github.com/DarkKevo/obsidian-brain) para ver los cambios nuevos.
+Eso descarga la última versión y la instala (sobreescribe archivos del skill, **no toca tu vault**).
 
-## Protocolo Completo
+Para ver si hay una versión más nueva:
 
-El skill completo con todos los protocolos (captura, linking, mantenimiento, git sync, búsqueda, preguntas socráticas) está en:
+```bash
+# Mostrar versión actual
+bash installer/install.sh --version
+
+# Después checkeá los cambios en GitHub:
+# https://github.com/DarkKevo/obsidian-brain
+```
+
+---
+
+## 🖥️ Plataformas soportadas
+
+| Plataforma | Archivo que se instala |
+|------------|----------------------|
+| **Pi** | `~/.pi/agent/skills/obsidian-brain/SKILL.md` |
+| **Claude Code** | `~/.claude/rules/obsidian-brain.md` |
+| **OpenCode** | `~/.config/opencode/skills/obsidian-brain/SKILL.md` |
+| **Cursor** | `~/.cursor/rules/obsidian-brain.mdc` |
+
+Todas las plataformas usan el mismo `SKILL.md` como fuente canónica. Los adapters solo referencian al archivo principal.
+
+---
+
+## 📖 Protocolo completo
+
+Todo el detalle de cómo se comporta el agente está en:
 
 [`skills/obsidian-brain/SKILL.md`](skills/obsidian-brain/SKILL.md)
 
-## Licencia
+Incluye: activation contract, configuración del vault, estructura de carpetas, sistema de templates, protocolo de captura (explícita/implícita/duda), linking, preguntas socráticas, mantenimiento, git sync, comandos de búsqueda, hard rules y decision gates.
+
+---
+
+## 📝 Licencia
 
 Apache-2.0 — ver [LICENSE](LICENSE).
+
+---
+
+**Creado por DarkKevo · [GitHub](https://github.com/DarkKevo/obsidian-brain)**
