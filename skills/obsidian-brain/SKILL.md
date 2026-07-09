@@ -347,7 +347,9 @@ Need to find note file by name "{name}"?
 
 ## 11. Hard Rules (DO NOT)
 
-1. **Do NOT** commit moves, renames, or frontmatter-only edits.
+1. **Do NOT** commit moves, renames, or frontmatter-only edits as standalone operations — only as part of a content capture commit after user approval.
+   
+   > Exception: Organize Limbo flow (Section 9) may include moves and frontmatter fixes.
 2. **Do NOT** commit without explicit user approval.
 3. **Do NOT** modify existing notes during capture (only the new note).
 4. **Do NOT** add tags automatically without user approval.

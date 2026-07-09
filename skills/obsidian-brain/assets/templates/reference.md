@@ -1,7 +1,7 @@
 ---
 id: {{id}}
 alias: "{{alias}}"
-tags: [reference, {{source}}]
+tags: [reference, {{topic}}]
 created: {{date}}
 modified: {{date}}
 source_url: ""

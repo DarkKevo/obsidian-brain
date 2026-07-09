@@ -146,7 +146,7 @@ install_pi() {
 }
 
 install_claude() {
-      local force="$1"
+  local force="$1"
   if [[ ! -d "$HOME/.claude" ]]; then
     warn "Claude Code: ~/.claude/ no encontrado. Saltando."
     return
@@ -154,14 +154,21 @@ install_claude() {
 
   local rules_dir="$HOME/.claude/rules"
   mkdir -p "$rules_dir"
-  cp "$ADAPTERS_SOURCE/claude-code/.claude/rules/obsidian-brain.md" "$rules_dir/obsidian-brain.md"
-  ok "Claude Code: instalado en $rules_dir/obsidian-brain.md"
+  if [[ "$force" == "1" || ! -f "$rules_dir/obsidian-brain.md" ]]; then
+    cp "$ADAPTERS_SOURCE/claude-code/.claude/rules/obsidian-brain.md" "$rules_dir/obsidian-brain.md"
+    ok "Claude Code: regla instalada en $rules_dir/obsidian-brain.md"
+  else
+    warn "Claude Code: regla ya existe. Usá --force para sobrescribir."
+  fi
 
-  # Also copy SKILL.md so Claude can read it as a reference
   local skill_target="$HOME/.claude/skills/obsidian-brain"
   mkdir -p "$skill_target"
-  cp "$SKILL_SOURCE" "$skill_target/SKILL.md"
-  ok "Claude Code: skill referenciado en $skill_target/SKILL.md"
+  if [[ "$force" == "1" || ! -f "$skill_target/SKILL.md" ]]; then
+    cp "$SKILL_SOURCE" "$skill_target/SKILL.md"
+    ok "Claude Code: skill referenciado en $skill_target/SKILL.md"
+  else
+    warn "Claude Code: skill ya existe. Usá --force para sobrescribir."
+  fi
 }
 
 install_opencode() {
@@ -202,7 +209,7 @@ EOF
 }
 
 install_cursor() {
-      local force="$1"
+  local force="$1"
   if [[ ! -d "$HOME/.cursor" ]]; then
     warn "Cursor: ~/.cursor/ no encontrado. Saltando."
     return
@@ -210,8 +217,12 @@ install_cursor() {
 
   local rules_dir="$HOME/.cursor/rules"
   mkdir -p "$rules_dir"
-  cp "$ADAPTERS_SOURCE/cursor/.cursor/rules/obsidian-brain.mdc" "$rules_dir/obsidian-brain.mdc"
-  ok "Cursor: instalado en $rules_dir/obsidian-brain.mdc"
+  if [[ "$force" == "1" || ! -f "$rules_dir/obsidian-brain.mdc" ]]; then
+    cp "$ADAPTERS_SOURCE/cursor/.cursor/rules/obsidian-brain.mdc" "$rules_dir/obsidian-brain.mdc"
+    ok "Cursor: instalado en $rules_dir/obsidian-brain.mdc"
+  else
+    warn "Cursor: regla ya existe. Usá --force para sobrescribir."
+  fi
 }
 
 # ── Template installation ──
@@ -223,14 +234,26 @@ install_templates() {
     return
   fi
 
+  # Expand tilde if present
+  vault_path="${vault_path/#\~/$HOME}"
+
   local templates_target="$vault_path/Templates"
   if [[ ! -d "$templates_target" ]]; then
     warn "No existe $templates_target. Creándolo."
     mkdir -p "$templates_target"
   fi
 
-  cp "$TEMPLATES_SOURCE"/*.md "$templates_target/"
-  ok "Templates copiados a $templates_target/"
+  # Guard against glob failure with set -e
+  shopt -s nullglob
+  local templates=("$TEMPLATES_SOURCE"/*.md)
+  shopt -u nullglob
+
+  if [[ ${#templates[@]} -gt 0 ]]; then
+    cp "${templates[@]}" "$templates_target/"
+    ok "Templates copiados a $templates_target/"
+  else
+    warn "No se encontraron templates en $TEMPLATES_SOURCE"
+  fi
 }
 
 # ── Summary ──
