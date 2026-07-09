@@ -102,6 +102,7 @@ Usage:
 Options:
   --vault-path PATH    Copy templates to vault Templates/ directory
   --version            Show version
+  --force              Overwrite existing skill files
   --help               Show this message
 
 Examples:
@@ -129,14 +130,15 @@ fail()  { echo -e "  [FAIL]  $*"; exit 1; }
 
 # ── Platform detection and installation ──
 install_pi() {
+  local force="$1"
   local target_dir="$HOME/.pi/agent/skills/obsidian-brain"
   if [[ -d "$HOME/.pi/agent/skills" ]]; then
     mkdir -p "$target_dir"
-    if [[ ! -f "$target_dir/SKILL.md" ]]; then
+    if [[ "$force" == "1" || ! -f "$target_dir/SKILL.md" ]]; then
       cp "$SKILL_SOURCE" "$target_dir/SKILL.md"
       ok "Pi: instalado en $target_dir/SKILL.md"
     else
-      warn "Pi: $target_dir/SKILL.md ya existe. Saltando (borrálo manualmente si querés reinstalar)."
+      warn "Pi: ya existe. Usá --force para sobrescribir."
     fi
   else
     warn "Pi: ~/.pi/agent/skills/ no encontrado. Saltando."
@@ -144,6 +146,7 @@ install_pi() {
 }
 
 install_claude() {
+      local force="$1"
   if [[ ! -d "$HOME/.claude" ]]; then
     warn "Claude Code: ~/.claude/ no encontrado. Saltando."
     return
@@ -162,6 +165,7 @@ install_claude() {
 }
 
 install_opencode() {
+  local force="$1"
   if [[ ! -d "$HOME/.config/opencode" ]]; then
     warn "OpenCode: ~/.config/opencode/ no encontrado. Saltando."
     return
@@ -169,11 +173,14 @@ install_opencode() {
 
   local target_dir="$HOME/.config/opencode/skills/obsidian-brain"
   mkdir -p "$target_dir"
-  if [[ ! -f "$target_dir/SKILL.md" ]]; then
+  if [[ "$force" == "1" ]]; then
+    cp "$SKILL_SOURCE" "$target_dir/SKILL.md"
+    ok "OpenCode: sobrescrito en $target_dir/SKILL.md"
+  elif [[ ! -f "$target_dir/SKILL.md" ]]; then
     cp "$SKILL_SOURCE" "$target_dir/SKILL.md"
     ok "OpenCode: instalado en $target_dir/SKILL.md"
   else
-    warn "OpenCode: $target_dir/SKILL.md ya existe. Saltando."
+    warn "OpenCode: ya existe. Usá --force para sobrescribir."
   fi
 
   local agents_file="$HOME/.config/opencode/AGENTS.md"
@@ -195,6 +202,7 @@ EOF
 }
 
 install_cursor() {
+      local force="$1"
   if [[ ! -d "$HOME/.cursor" ]]; then
     warn "Cursor: ~/.cursor/ no encontrado. Saltando."
     return
@@ -253,12 +261,14 @@ print_summary() {
 # ── Main ──
 main() {
   local vault_path=""
+  local force=0
 
   while [[ $# -gt 0 ]]; do
     case "$1" in
       --help) show_help; exit 0 ;;
       --version) echo "obsidian-brain v$VERSION"; exit 0 ;;
       --vault-path) vault_path="$2"; shift 2 ;;
+      --force) force=1; shift ;;
       *) warn "Opción desconocida: $1"; show_help; exit 1 ;;
     esac
   done
@@ -282,10 +292,10 @@ main() {
   info "Instalando skill en plataformas detectadas..."
   echo ""
 
-  install_pi
-  install_claude
-  install_opencode
-  install_cursor
+  install_pi "$force"
+  install_claude "$force"
+  install_opencode "$force"
+  install_cursor "$force"
 
   echo ""
   install_templates "$vault_path"

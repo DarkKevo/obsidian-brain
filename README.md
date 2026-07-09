@@ -22,6 +22,12 @@ Si **ya tenés un vault**, copiale los templates de notas (reemplazá por tu rut
 curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/ruta/al/vault
 ```
 
+Para **actualizar o sobrescribir** una instalación existente:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --force --vault-path ~/ruta/al/vault
+```
+
 ### Desde el repo (si lo clonaste)
 
 ```bash
