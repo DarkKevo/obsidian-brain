@@ -1,0 +1,5 @@
+---
+description: Obsidian Brain vault workflow rules
+globs: "**/*.md"
+---
+Always reference `skills/obsidian-brain/SKILL.md` for vault creation, capture, linking, maintenance, and git sync protocols.

@@ -1,0 +1,10 @@
+# Default vault configuration template
+# This file is a reference; the real config lives at {vault_path}/.vaultconfig
+vault_name: ""
+vault_path: ""
+created_at: ""
+github_url: ""
+autocommit: true
+autopush: true
+language: es
+max_socratic_questions: 5
