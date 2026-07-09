@@ -105,25 +105,17 @@ Options:
   --help               Show this message
 
 Examples:
-  ── Bash / Zsh (Oh My Zsh) ──
   # Install (auto-detects platforms)
   curl -fsSL $RAW_BASE/installer/install.sh | bash
 
-  # Install + copy templates to a vault
+  # Install + copy templates (~/ruta/al/vault = tu vault real)
   curl -fsSL $RAW_BASE/installer/install.sh | bash -s -- --vault-path ~/ruta/al/vault
 
-  # Check version
+  # Check version (el -- es OBLIGATORIO)
   curl -fsSL $RAW_BASE/installer/install.sh | bash -s -- --version
 
-  ── Fish ──
-  # Install (same)
-  curl -fsSL $RAW_BASE/installer/install.sh | bash
-
-  # Install + copy templates (NO -- after -s)
-  curl -fsSL $RAW_BASE/installer/install.sh | bash -s --vault-path ~/ruta/al/vault
-
-  # Check version
-  curl -fsSL $RAW_BASE/installer/install.sh | bash -s --version
+IMPORTANT: el -- despues de bash -s es de bash, no del shell.
+Funciona igual en bash, zsh, fish y cualquier shell.
 
 Platforms detected:
   • Pi (gentle-pi):    ~/.pi/agent/skills/

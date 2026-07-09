@@ -10,33 +10,31 @@ El agente captura ideas mientras te enseña, conecta conceptos automáticamente,
 
 ### Desde GitHub (recomendado)
 
-Elegí tu shell y reemplazá `~/ruta/al/vault` por la ruta de tu vault:
+Elegí tu shell y reemplazá `~/ruta/al/vault` por la ruta de tu vault.
 
-**Bash / Zsh (Oh My Zsh)**
+> ⚠️ **Importante**: el `--` después de `bash -s` es de bash, no del shell padre.
+> Es **obligatorio** en bash, zsh y fish para que los argumentos con `--` (como `--vault-path`)
+> no se confundan con opciones del propio bash. **No lo saques.**
+
+**Bash / Zsh / Fish** — todos usan el mismo comando:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash
 ```
 
 Con vault existente:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/ruta/al/vault
 ```
 
-> 💡 El `--` separa los argumentos de curl de los que le pasás al script.
-
-**Fish**
-```fish
-curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash
-```
-
-Con vault existente:
-```fish
-curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s --vault-path ~/ruta/al/vault
-```
-
-> 💡 En fish **no** usamos `--`, los argumentos van directo después de `-s`.
-
 ### Ver versión
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --version
+```
+
+> ⚠️ **No olvides el `--`**: sin él, bash interpreta `--version` como su propia versión.
 
 **Bash / Zsh**
 ```bash
@@ -96,28 +94,20 @@ Agente: Te explica, crea la nota atómica, y te pregunta:
 
 ## 🔄 Actualizar el skill
 
-Cuando haya cambios nuevos en el repo, corre el mismo comando de instalación según tu shell:
+Cuando haya cambios nuevos en el repo, corre el mismo comando de instalación:
 
-**Bash / Zsh**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --vault-path ~/ruta/al/vault
 ```
 
-**Fish**
-```fish
-curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s --vault-path ~/ruta/al/vault
-```
+(Reemplazá `~/ruta/al/vault` por la ruta real de tu vault)
 
 Eso descarga la última versión y la instala (sobreescribe archivos del skill, **no toca tu vault**).
 
 Para ver la versión actual:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --version   # bash/zsh
-```
-
-```fish
-curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s --version   # fish
+curl -fsSL https://raw.githubusercontent.com/DarkKevo/obsidian-brain/main/installer/install.sh | bash -s -- --version
 ```
 
 ---
