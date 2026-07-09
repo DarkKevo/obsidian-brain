@@ -30,8 +30,7 @@ vault_name: mi-segundo-cerebro               # user-friendly name
 created_at: 2026-07-09                       # ISO date of vault creation
 github_url: https://github.com/DarkKevo/mi-segundo-cerebro  # optional remote URL
 language: es                                 # "es" or "en"
-autocommit: true                             # auto-commit after capture
-autopush: true                               # auto-push after commit
+autopush: true                               # auto-push after user-approved commit (false = commit only)
 ```
 
 ### Vault Path Resolution
@@ -100,7 +99,6 @@ STEP 9: Write .vaultconfig
   created_at: {today's date YYYY-MM-DD}
   github_url: {captured URL or ""}
   language: {detected from session: "es" or "en"}
-  autocommit: true
   autopush: true
 
 STEP 10: Confirm to user
@@ -254,32 +252,40 @@ What type of note?
 ## 9. Git Sync Protocol
 
 ### Scope
-- **ONLY NEW content**: first creation of a `.md` file (untracked).
-- **EXCLUDED**: moves, renames, frontmatter edits, deletions.
-
-### Detection
-```bash
-git status --porcelain "{filepath}"
-# "?? file.md" → untracked/new → commit
-# " M file.md" → modified → skip
-# "A  file.md" → already staged → skip
-```
+- **New content**: first creation of a `.md` file in Limbo/.
+- **Moves**: from Limbo/ to Areas/ when a note matures.
+- **Hubs**: newly created hubs for related notes.
+- **Frontmatter**: validation fixes.
+- Adds and modifications are included.
 
 ### Trigger
 After EVERY note creation, ASK the user before committing:
 
 > "¿Hago commit y push de `{note}`?"
 
-- If user says **yes / dale / ok** → commit.
-- If user says **no / después / skip** → skip git entirely.
+- If user says **no / después / skip** → skip git entirely. Next time, ask again.
+- If user says **yes / dale / ok** → proceed to **Organize Limbo** first, then commit everything.
+
+### Organize Limbo (runs BEFORE commit)
+
+Once the user approves the commit, **before touching git**, run Maintenance Protocol (Section 8) on Limbo/:
+
+1. **Check for mature notes**: For each note in Limbo/, check if it has incoming `[[links]]` or sufficient content → ask "¿Muevo `{note}` a `Areas/{topic}/`?"
+2. **Check for hubs**: If 3+ atomic notes share a topic without a Hub → suggest creating one.
+3. **Validate frontmatter**: Scan all notes being committed for valid `id`, `alias`, `tags`.
+
+If the user accepts moves or hub creation, those changes are included in the commit.
 
 ### Commit Flow
 ```bash
-git add {path/to/new-note.md}
-git commit -m "capture: {concept-slug}"    # for atomic/reference
+# 1. User approved → run Organize Limbo (above) first
+# 2. Then stage everything and commit
+
+git add -A                              # stage all changes
+git commit -m "capture: {concept-slug}"  # for atomic/reference
 # OR
-git commit -m "hub: {topic}"               # for hubs
-git push                                    # if autopush=true
+git commit -m "hub: {topic}"             # for hubs
+git push                                 # if autopush=true
 ```
 
 ### Batch Commit at Session End
@@ -287,12 +293,16 @@ If multiple notes were created during the session, the agent MAY ask at the end:
 
 > "Hay {N} notas nuevas sin commitear. ¿Hago commit de todas?"
 
+Same flow: user approves → organize Limbo → commit all → push.
+
 ### Commit Message Format
 - Atomic/Reference notes: `capture: {concept-slug}`
 - Hubs: `hub: {topic}`
+- Maintenance: `vault: organize Limbo`
 
 ### Rules
 - **Always ask before committing** — never commit without explicit user approval.
+- **Organize Limbo first** — antes de commitear, preguntá si mover notas maduras o crear hubs.
 - **Inform after**: "Listo, ya lo subí a GitHub."
 - If `autopush` is false, commit only, skip push.
 
