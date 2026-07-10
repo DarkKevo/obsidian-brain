@@ -70,11 +70,14 @@ Agente: Te explica, crea la nota atómica, y te pregunta:
 |-----------|--------------|
 | **Captura híbrida** | Decís "guardá esto" → crea nota. Preguntás "no entiendo X" → te explica y la guarda sola. Si duda, pregunta. |
 | **3 tipos de nota** | **Hub** (mapa de contenido), **Atómica** (un concepto), **Referencia** (fuente externa) |
-| **Links automáticos** | Al crear una nota, busca conceptos relacionados en tu vault y sugiere `[[wikilinks]]` |
+| **Links automáticos 3-Tier** | Al crear una nota, busca conexiones en 3 niveles: match directo → semántico/cross-language → indirecto (A→B→C) |
+| **Cross-language es↔en** | Detecta automáticamente conexiones entre notas en español e inglés usando 25+ pares bilingües incorporados |
 | **Preguntas socráticas** | Cuando captura algo que te explicó, hace preguntas para profundizar. |
-| **Mantenimiento** | Sugiere mover notas de Limbo a Áreas, crear Hubs cuando hay muchas notas del mismo tema, valida frontmatter. |
+| **Mantenimiento automático** | Al iniciar sesión revisa: notas viejas en Limbo, hubs faltantes, wikilinks rotos. Cada ~5 interacciones hace control periódico. |
+| **Template sync** | Compara checksums entre skill assets y vault Templates/. Reporta diferencias y pregunta si sincronizar. |
+| **Onboarding inteligente** | Detecta automáticamente vaults existentes desde `obsidian.json`. No necesitas decirle dónde está tu vault. |
 | **Git sync** | Después de cada nota pregunta "¿Hago commit?". Antes de commitear, organiza Limbo (mueve notas maduras, sugiere hubs). Nunca sube nada sin tu permiso. |
-| **Búsqueda** | Busca rápido por contenido, tags o nombre de archivo. |
+| **Búsqueda 3 niveles** | Búsqueda directa, semántica cross-language, y detección de relaciones indirectas entre notas. |
 
 ---
 

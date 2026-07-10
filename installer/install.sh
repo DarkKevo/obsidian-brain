@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Obsidian Brain — Installer v1.0.0
+# Obsidian Brain — Installer v1.1.0
 # Installs the skill for supported AI platforms.
 # Works both locally (from repo) and remotely (curl | bash).
 #
@@ -12,7 +12,7 @@ set -euo pipefail
 #   --vault-path PATH    Copy templates to vault Templates/ directory
 #   --help               Show this message
 
-VERSION="1.0.0"
+VERSION="1.1.0"
 REPO="DarkKevo/obsidian-brain"
 BRANCH="main"
 RAW_BASE="https://raw.githubusercontent.com/$REPO/$BRANCH"
